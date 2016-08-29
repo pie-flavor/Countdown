@@ -1,0 +1,22 @@
+plugins {
+    id 'idea'
+    id 'org.spongepowered.plugin' version '0.6'
+    id 'com.qixalite.spongestart' version '1.5.2'
+}
+
+group 'flavor.pie'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:5.0.0-SNAPSHOT'
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+    }
+}
+spongestart {
+    eula true
+    spongeVanillaBuild '1.10.2-5.0.0-BETA-112'
+}
