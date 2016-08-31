@@ -95,7 +95,7 @@ public class CountdownData extends AbstractData<CountdownData, CountdownData.Imm
 
     @Override
     public DataContainer toContainer() {
-        return super.toContainer().set(CountdownKeys.WAIT_TICKS_LEFT, waitTicks).set(CountdownKeys.TICKS_LEFT, ticks);
+        return super.toContainer().set(CountdownKeys.WAIT_TICKS_LEFT.getQuery(), waitTicks).set(CountdownKeys.TICKS_LEFT.getQuery(), ticks);
     }
 
     public static class Immutable extends AbstractImmutableData<Immutable, CountdownData> {
