@@ -15,6 +15,7 @@ import org.spongepowered.api.command.args.CommandContext;
 import org.spongepowered.api.command.args.GenericArguments;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
+import org.spongepowered.api.data.DataTransactionResult;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
@@ -149,7 +150,7 @@ public class Countdown {
         startTask();
     }
     void startTask() {
-        Task.builder().delayTicks(1).execute(this::tick).intervalTicks(1).name("countdown-S-TickCounter");
+        Task.builder().delayTicks(1).execute(this::tick).intervalTicks(1).name("countdown-S-TickCounter").submit(this);
     }
     void tick() {
         for (Player p : game.getServer().getOnlinePlayers()) {
@@ -248,7 +249,10 @@ public class Countdown {
             throw new CommandException(Text.of("This person's timer has already started!"));
         }
         data.waitTicks = 0;
-        p.offer(data);
+        DataTransactionResult res = p.offer(data);
+        if (!res.isSuccessful()) {
+            throw new CommandException(Text.of("Refused to offer data! Rejected: ", res.getRejectedData().toString()));
+        }
         p.sendTitle(Title.builder()
                 .title(Text.of(TextColors.RED, "Your timer has started!"))
                 .fadeIn(20)

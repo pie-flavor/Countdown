@@ -19,7 +19,7 @@ public class CountdownData extends AbstractData<CountdownData, CountdownData.Imm
         waitTicks = -1;
     }
     CountdownData(long ticks, long waitTicks, Countdown plugin) {
-        this.waitTicks = ticks;
+        this.waitTicks = waitTicks;
         this.ticks = ticks;
     }
     long ticks;
